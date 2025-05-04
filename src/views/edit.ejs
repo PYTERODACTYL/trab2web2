@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+    <div class="max-w-2xl mx-auto bg-white mt-10 p-8 rounded shadow">
+        <h1 class="text-2xl font-bold mb-6 text-gray-700">Edit Profile</h1>
+
+        <form action="/update/<%= user.id %>" method="POST" class="space-y-4">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Name</label>
+                <input type="text" name="name" value="<%= user.name %>" class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+
+            <% if (session.user.role === 'admin' || session.user.id === user.id) { %>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-700 mt-6 mb-2">E-mails</h2>
+                    <div id="email-container">
+                        <% emails.forEach((email, index) => { %>
+                            <input type="email" name="emails[]" value="<%= email.email %>" class="w-full border border-gray-300 rounded p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <% }) %>
+                    </div>
+                    <button type="button" onclick="addEmail()" class="text-blue-600 hover:underline text-sm">+ Add email</button>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-700 mt-6 mb-2">Telephones</h2>
+                    <div id="phone-container">
+                        <% telefones.forEach((tel, index) => { %>
+                            <input type="text" name="phones[]" value="<%= tel.phone %>" class="w-full border border-gray-300 rounded p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <% }) %>
+                    </div>
+                    <button type="button" onclick="addPhone()" class="text-blue-600 hover:underline text-sm">+ Add Phone</button>
+                </div>
+            <% } %>
+
+            <div class="pt-4">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addEmail() {
+            const input = document.createElement("input");
+            input.type = "email";
+            input.name = "emails[]";
+            input.className = "w-full border border-gray-300 rounded p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500";
+            document.getElementById("email-container").appendChild(input);
+        }
+
+        function addPhone() {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "phones[]";
+            input.className = "w-full border border-gray-300 rounded p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500";
+            document.getElementById("phone-container").appendChild(input);
+        }
+    </script>
+</body>
+</html>

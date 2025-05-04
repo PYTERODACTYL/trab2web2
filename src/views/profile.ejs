@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-4">Profile</h1>
+        
+        <div class="space-y-2">
+            <p><strong>ID:</strong> <%= user.id %></p>
+            <p><strong>Name:</strong> <%= user.name %></p>
+            <p><strong>CPF:</strong> <%= user.CPF %></p>
+            <p><strong>Role:</strong> <%= user.role %></p>
+        </div>
+
+        <div class="mt-6">
+            <h2 class="text-lg font-semibold mb-2">E-mails</h2>
+            <% if (emails.length > 0) { %>
+                <ul class="list-disc list-inside text-gray-700">
+                    <% emails.forEach(email => { %>
+                        <li><%= email.email %></li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p class="text-gray-500">No e-mail found.</p>
+            <% } %>
+        </div>
+
+        <div class="mt-6">
+            <h2 class="text-lg font-semibold mb-2">Phones</h2>
+            <% if (phones.length > 0) { %>
+                <ul class="list-disc list-inside text-gray-700">
+                    <% phones.forEach(phone => { %>
+                        <li><%= phone.phone %></li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p class="text-gray-500">No phone found.</p>
+            <% } %>
+        </div>
+
+        <div class="mt-6 flex justify-between items-center">
+            <a href="/users" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Users List</a>
+            <form action="/logout" method="POST" class="text-center">
+                <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
